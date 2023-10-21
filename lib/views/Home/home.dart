@@ -1,4 +1,5 @@
 import 'package:api_flutter/models/user.dart';
+import 'package:api_flutter/views/UserDetails/userDetails.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -9,6 +10,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Future<List<Map>> users = User().fetchUsers();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,6 +34,13 @@ class _HomeState extends State<Home> {
                   title: Text(snapshot.data[index]['name']),
                   subtitle: Text(snapshot.data[index]['email']),
                   contentPadding: EdgeInsets.only(bottom: 20.0),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                UserDetails(user: snapshot.data[index])));
+                  },
                 ),
               );
             }
